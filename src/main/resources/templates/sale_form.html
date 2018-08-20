@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sale form</title>
+    <!--/*/ <th:block th:include="fragments/assets :: assets"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/navbar :: navbar"></th:block> /*/-->
+<div class="container-fluid">
+    <h2>Sale form</h2>
+    <form class="col-xl-6" th:object="${sale}" th:action="@{/sale}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{version}"/>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="text"
+                   placeholder="Date"
+                   th:field="*{date}"
+                   th:class="'form-control ' + ${#fields.hasErrors('date') ? 'is-invalid' : ''}"/>
+            <small id="emailHelp" class="form-text text-muted">example: 25.05.18, 21:34</small>
+        </div>
+        <div class="form-row" th:each="row,rowSale : *{salePositions}">
+            <div class="form-group col-md-7">
+                <label>Product</label>
+                <select class="custom-select" th:field="*{salePositions[__${rowSale.index}__].product}">
+                    <option th:each="product : ${products}"
+                            th:value="${product.id}"
+                            th:text="${product.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Quantity</label>
+                <input type="text"
+                       placeholder="Quantity"
+                       th:field="*{salePositions[__${rowSale.index}__].quantity}"
+                       th:class="'form-control ' + ${#fields.hasErrors('salePositions['+__${rowSale.index}__+'].quantity') ? 'is-invalid' : ''}"/>
+            </div>
+            <div class="form-group col-md-1">
+                <button class="btn btn-sm btn-danger btn-delete-position"
+                        type="submit"
+                        name="removePosition"
+                        th:value="${rowSale.index}">Delete
+                </button>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-sm btn-success" type="submit">Save</button>
+            <button class="btn btn-sm btn-primary" type="submit" name="addPosition">Add position</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

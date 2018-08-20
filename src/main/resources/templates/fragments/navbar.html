@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand">Solid_t</span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a th:class="'nav-link ' + ${productsMenuActive}" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="'nav-link ' + ${salesMenuActive}" href="/sales">Sales</a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="'nav-link ' + ${discountsMenuActive}" href="/discounts">Discounts</a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="'nav-link ' + ${statisticsMenuActive}" href="/statistics">Statistics</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-warning btn-sm" href="/data">Generate new data</a>
+                    <a class="btn btn-danger btn-sm " href="/delete_all_data">Delete all data</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>

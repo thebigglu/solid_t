@@ -1,0 +1,28 @@
+.header-with-btn {
+    padding: 0 15px;
+}
+
+.btn-header {
+    margin-top: 5px;
+}
+
+.table-striped__immediate-only > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+.table .table {
+    background-color: transparent;
+    font-size: 0.9rem;
+}
+
+.table table thead td {
+    font-weight: bold;
+}
+
+.table table td {
+    padding: 0.3rem;
+}
+
+.btn-delete-position {
+    margin-top: 35px;
+}

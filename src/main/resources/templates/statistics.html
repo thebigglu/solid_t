@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Statistics</title>
+    <!--/*/ <th:block th:include="fragments/assets :: assets"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/navbar :: navbar"></th:block> /*/-->
+<div class="container-fluid">
+    <h2>Sales statistics</h2>
+    <div th:if="${#lists.isEmpty(statistics)}">List is empty</div>
+    <div th:if="${not #lists.isEmpty(statistics)}">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Hour</th>
+                <th>Number of sales</th>
+                <th>Amount</th>
+                <th>Average amount</th>
+                <th>Amount discounts</th>
+                <th>Amount with discounts</th>
+                <th>Average amount with discounts</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="element : ${statistics}">
+                <td th:text="${#temporals.format(element.hour, dateFormat)}"></td>
+                <td th:text="${element.saleQuantity}"></td>
+                <td th:text="${element.sum}"></td>
+                <td th:text="${element.average}"></td>
+                <td th:text="${element.sumOfDiscounts}"></td>
+                <td th:text="${element.sumWithDiscounts}"></td>
+                <td th:text="${element.averageWithDiscounts}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

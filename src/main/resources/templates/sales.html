@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sales</title>
+    <!--/*/ <th:block th:include="fragments/assets :: assets"></th:block> /*/-->
+</head>
+<body>
+<!--/*/ <th:block th:include="fragments/navbar :: navbar"></th:block> /*/-->
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="header-with-btn">Sales</h2>
+        <form th:if="not ${#lists.isEmpty(products)}" th:object="${sale}" th:action="@{sale/new}" method="post">
+            <button class="btn btn-header btn-sm btn-primary" type="submit">Add sale</button>
+        </form>
+    </div>
+    <div th:if="${#lists.isEmpty(sales)}">List is empty</div>
+    <div th:if="${not #lists.isEmpty(sales)}">
+        <table class="table table-striped__immediate-only">
+            <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Positions</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale : ${sales}">
+                <td th:text="${#temporals.format(sale.date, dateFormat)}"></td>
+                <td>
+                    <table class="table table-bordered" th:if="${not #lists.isEmpty(sale.salePositions)}">
+                        <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Price</td>
+                            <td>Number</td>
+                            <td>Discount</td>
+                        </tr>
+                        </thead>
+                        <tr th:each="position : ${sale.salePositions}">
+                            <td th:text="${position.product.name}"></td>
+                            <td th:text="${position.product.price}"></td>
+                            <td th:text="${position.quantity}"></td>
+                            <td
+                                    th:text="${position.discount != null} ? ${position.discount.value + '%'}"
+                            ></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <form th:object="${sale}" th:action="${'/sale/edit/' + sale.id}">
+                        <button class="btn btn-sm btn-warning" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:object="${sale}" th:action="${'/sale/delete/' + sale.id}" method="post">
+                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
